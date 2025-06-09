@@ -15,3 +15,9 @@ def predict(data: InputData):
         return {"response": "⚙️ 已识别珠子节拍关键词，构建局部结构响应"}
     else:
         return {"response": "⚠️ 未识别关键词，无法建立结构链"}
+
+@app.get("/privacy")
+def privacy_policy():
+    return {
+        "privacy": "We respect your privacy. This service does not collect, store, or share any personal user data. All API calls are processed anonymously. For further inquiries, contact us at structure.api@example.com."
+    }
