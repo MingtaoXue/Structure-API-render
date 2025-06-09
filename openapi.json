@@ -1,0 +1,56 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "薛明涛结构预测系统",
+    "version": "1.0.0",
+    "description": "基于珠子张力链响应的结构系统，用于识别结构关键词并返回动态响应"
+  },
+  "servers": [
+    {
+      "url": "https://structure-api-render.onrender.com"
+    }
+  ],
+  "paths": {
+    "/predict": {
+      "post": {
+        "summary": "结构关键词触发响应",
+        "operationId": "structure_predict",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "待分析的结构关键词或语句"
+                  }
+                },
+                "required": ["text"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "结构响应成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "string",
+                      "description": "系统返回的结构响应文本"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
