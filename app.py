@@ -27,5 +27,10 @@ def privacy_policy():
     return {
         "privacy": "We respect your privacy. This service does not collect, store, or share any personal user data. All API calls are processed anonymously. For further inquiries, contact us at structure.api@example.com."
     }
+# ✔ 静态挂载 well-known 文件夹
+import os
+from fastapi.staticfiles import StaticFiles
 
+os.makedirs(".well-known", exist_ok=True)
 app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
+
