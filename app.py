@@ -3,6 +3,11 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+from fastapi.staticfiles import StaticFiles
+import os
+
+app.mount("/", StaticFiles(directory=".", html=True), name="static")
+
 class InputData(BaseModel):
     text: str
 
@@ -21,21 +26,5 @@ def privacy_policy():
     return {
         "privacy": "We respect your privacy. This service does not collect, store, or share any personal user data. All API calls are processed anonymously. For further inquiries, contact us at structure.api@example.com."
     }
-
-from fastapi.staticfiles import StaticFiles
-import os
-
-# 如果 .well-known 文件夹不存在，创建它
-if not os.path.exists(".well-known"):
-    os.makedirs(".well-known")
-
-# 静态挂载 .well-known 文件夹
-app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
-
-from fastapi.staticfiles import StaticFiles
-import os
-
-if not os.path.exists(".well-known"):
-    os.makedirs(".well-known")
 
 app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
