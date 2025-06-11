@@ -21,3 +21,9 @@ def privacy_policy():
     return {
         "privacy": "We respect your privacy. This service does not collect, store, or share any personal user data. All API calls are processed anonymously. For further inquiries, contact us at structure.api@example.com."
     }
+
+from fastapi.responses import FileResponse
+
+@app.get("/.well-known/ai-plugin.json")
+def serve_plugin_manifest():
+    return FileResponse(".well-known/ai-plugin.json", media_type="application/json")
