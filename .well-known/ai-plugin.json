@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "结构系统预测助手",
+  "name_for_model": "structure_predictor",
+  "description_for_human": "调用结构识别系统，分析关键词触发结构功能。",
+  "description_for_model": "Use this API to detect structure-related keywords and return system-specific structural response.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://structure-api-render.onrender.com/openapi.json"
+  },
+  "logo_url": "https://structure-api-render.onrender.com/logo.png",
+  "contact_email": "your@email.com",
+  "legal_info_url": "https://structure-api-render.onrender.com/privacy"
+}
