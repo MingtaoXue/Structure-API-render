@@ -27,3 +27,11 @@ from fastapi.responses import FileResponse
 @app.get("/.well-known/ai-plugin.json")
 def serve_plugin_manifest():
     return FileResponse(".well-known/ai-plugin.json", media_type="application/json")
+
+from fastapi.staticfiles import StaticFiles
+import os
+
+if not os.path.exists(".well-known"):
+    os.makedirs(".well-known")
+
+app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
