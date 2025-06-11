@@ -15,3 +15,9 @@ def predict(data: InputData):
         return {"response": "⚙️ 已识别珠子节拍关键词，构建局部结构响应"}
     else:
         return {"response": "⚠️ 未识别关键词，无法建立结构链"}
+
+import os
+from fastapi.staticfiles import StaticFiles
+
+os.makedirs(".well-known", exist_ok=True)
+app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
