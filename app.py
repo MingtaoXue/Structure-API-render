@@ -34,3 +34,6 @@ from fastapi.staticfiles import StaticFiles
 os.makedirs(".well-known", exist_ok=True)
 app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
 
+from app_expand import register_predict_route
+register_predict_route(app)
+
