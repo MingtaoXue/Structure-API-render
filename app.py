@@ -3,6 +3,11 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+from fastapi.staticfiles import StaticFiles
+
+app.mount("/", StaticFiles(directory=".", html=True), name="static")
+
+
 class InputData(BaseModel):
     text: str
 
