@@ -3,12 +3,6 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-from fastapi.staticfiles import StaticFiles
-import os
-os.makedirs(".well-known", exist_ok=True)
-
-app.mount("/", StaticFiles(directory=".", html=True), name="static")
-
 class InputData(BaseModel):
     text: str
 
@@ -21,19 +15,3 @@ def predict(data: InputData):
         return {"response": "⚙️ 已识别珠子节拍关键词，构建局部结构响应"}
     else:
         return {"response": "⚠️ 未识别关键词，无法建立结构链"}
-
-@app.get("/privacy")
-def privacy_policy():
-    return {
-        "privacy": "We respect your privacy. This service does not collect, store, or share any personal user data. All API calls are processed anonymously. For further inquiries, contact us at structure.api@example.com."
-    }
-# ✔ 静态挂载 well-known 文件夹
-import os
-from fastapi.staticfiles import StaticFiles
-
-os.makedirs(".well-known", exist_ok=True)
-app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
-
-from app_expand import register_predict_route
-register_predict_route(app)
-
