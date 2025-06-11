@@ -21,3 +21,10 @@ from fastapi.staticfiles import StaticFiles
 
 os.makedirs(".well-known", exist_ok=True)
 app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
+
+import os
+from fastapi.staticfiles import StaticFiles
+
+os.makedirs(".well-known", exist_ok=True)
+app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
+
