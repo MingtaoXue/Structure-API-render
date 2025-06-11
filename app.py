@@ -5,6 +5,7 @@ app = FastAPI()
 
 from fastapi.staticfiles import StaticFiles
 import os
+os.makedirs(".well-known", exist_ok=True)
 
 app.mount("/", StaticFiles(directory=".", html=True), name="static")
 
