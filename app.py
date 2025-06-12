@@ -7,6 +7,12 @@ from fastapi.staticfiles import StaticFiles
 
 app.mount("/", StaticFiles(directory=".", html=True), name="static")
 
+@app.get("/privacy")
+def privacy_policy():
+    return {
+        "privacy": "We respect your privacy. This service does not collect, store, or share any personal user data. All API calls are processed anonymously. For further inquiries, contact us at structure.api@example.com."
+    }
+
 
 class InputData(BaseModel):
     text: str
