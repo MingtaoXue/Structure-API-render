@@ -7,6 +7,10 @@ from fastapi.staticfiles import StaticFiles
 
 app.mount("/", StaticFiles(directory=".", html=True), name="static")
 
+@app.get("/")
+def root():
+    return {"message": "API is working"}
+
 @app.get("/privacy")
 def privacy_policy():
     return {
