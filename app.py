@@ -1,46 +1,37 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.staticfiles import StaticFiles
+import os
 
 app = FastAPI()
 
-from pydantic import BaseModel
-from fastapi.staticfiles import StaticFiles
-
+# 确保 .well-known 和 openapi.json 可被访问
+os.makedirs(".well-known", exist_ok=True)
+app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
 app.mount("/", StaticFiles(directory=".", html=True), name="static")
 
+# 根路径用于测试
 @app.get("/")
 def root():
     return {"message": "API is working"}
 
+# 隐私政策
 @app.get("/privacy")
-def privacy_policy():
-    return {
-        "privacy": "We respect your privacy. This service does not collect, store, or share any personal user data. All API calls are processed anonymously. For further inquiries, contact us at structure.api@example.com."
-    }
+def privacy():
+    with open("./.well-known/privacy.md", "r", encoding="utf-8") as f:
+        return {"privacy": f.read()}
 
-
+# 输入数据模型
 class InputData(BaseModel):
-    text: str
+    user_input: str
 
+# 核心预测接口
 @app.post("/predict")
 def predict(data: InputData):
-    text = data.text
+    text = data.user_input
     if "薛明涛" in text:
-        return {"response": "✅ 已触发主干节拍链（薛明涛结构系统）"}
-    elif "珠子" in text or "节拍" in text:
-        return {"response": "⚙️ 已识别珠子节拍关键词，构建局部结构响应"}
+        return {"response": "✅ 已识别关键结构：薛明涛"}
+    elif "结构" in text:
+        return {"response": "⚠️ 已识别结构关键词，但缺乏特定的判断值"}
     else:
-        return {"response": "⚠️ 未识别关键词，无法建立结构链"}
-
-import os
-from fastapi.staticfiles import StaticFiles
-
-os.makedirs(".well-known", exist_ok=True)
-app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
-
-import os
-from fastapi.staticfiles import StaticFiles
-
-os.makedirs(".well-known", exist_ok=True)
-app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
-
+        return {"response": "❌ 未识别到关键结构"}
