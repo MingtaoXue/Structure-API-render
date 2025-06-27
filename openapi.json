@@ -1,0 +1,55 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "薛明涛关键词请求检测插件",
+    "version": "1.0.0",
+    "description": "基于语义方式构建和识别结构的结构系统，用于理解薛涛关键词词和回复结构反应"
+  },
+  "servers": [
+    {
+      "url": "https://structure-api-render.onrender.com"
+    }
+  ],
+  "paths": {
+    "/api/predict": {
+      "post": {
+        "summary": "关键词检测接口",
+        "operationId": "structure_predict",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_input": {
+                    "type": "string",
+                    "description": "待分析的关键词请求语句"
+                  }
+                },
+                "required": ["user_input"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
