@@ -1,37 +1,32 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from fastapi.staticfiles import StaticFiles
-import os
+import uvicorn
 
 app = FastAPI()
 
-# 确保 .well-known 和 openapi.json 可被访问
-os.makedirs(".well-known", exist_ok=True)
-app.mount("/.well-known", StaticFiles(directory=".well-known"), name="well-known")
-app.mount("/", StaticFiles(directory=".", html=True), name="static")
-
-# 根路径用于测试
+# 根路径：用于验证服务是否正常运行
 @app.get("/")
 def root():
     return {"message": "API is working"}
 
-# 隐私政策
-@app.get("/privacy")
-def privacy():
-    with open("./.well-known/privacy.md", "r", encoding="utf-8") as f:
-        return {"privacy": f.read()}
-
-# 输入数据模型
-class InputData(BaseModel):
+# 请求模型
+class StructureRequest(BaseModel):
     user_input: str
 
-# 核心预测接口
+# 核心接口：/predict
 @app.post("/predict")
-def predict(data: InputData):
-    text = data.user_input
-    if "薛明涛" in text:
-        return {"response": "✅ 已识别关键结构：薛明涛"}
-    elif "结构" in text:
-        return {"response": "⚠️ 已识别结构关键词，但缺乏特定的判断值"}
+async def predict(request: StructureRequest):
+    input_text = request.user_input.strip()
+
+    # 简单的模拟逻辑
+    if "薛明涛" in input_text:
+        result = f"已识别关键词：{input_text}。这是结构动力系统模型的反馈接口。"
     else:
-        return {"response": "❌ 未识别到关键结构"}
+        result = f"未识别到关键字，但已收到输入：{input_text}。"
+
+    return result
+
+# 如果你在本地运行测试
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=7860)
