@@ -1,19 +1,19 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "薛明涛结构预测系统",
+    "title": "结构关键词检测系统插件",
     "version": "1.0.0",
-    "description": "基于珠子张力链响应的结构系统，用于识别结构关键词并返回动态响应"
+    "description": "基于语义方式构建和识别结构的结构系统，用于理解结构关键词和回复结构反应"
   },
   "servers": [
     {
-      "url": "https://structure-api-render.onrender.com"
+      "url": "https://structure-api-render.onrender.com/api"
     }
   ],
   "paths": {
     "/predict": {
       "post": {
-        "summary": "结构关键词触发响应",
+        "summary": "结构关键词检测接口",
         "operationId": "structure_predict",
         "requestBody": {
           "required": true,
@@ -22,27 +22,26 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "text": {
+                  "user_input": {
                     "type": "string",
                     "description": "待分析的结构关键词或语句"
                   }
                 },
-                "required": ["text"]
+                "required": ["user_input"]
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "结构响应成功",
+            "description": "结构分析的关键词检测返回值",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
                     "response": {
-                      "type": "string",
-                      "description": "系统返回的结构响应文本"
+                      "type": "string"
                     }
                   }
                 }
