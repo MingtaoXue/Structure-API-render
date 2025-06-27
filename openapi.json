@@ -7,7 +7,8 @@
   },
   "servers": [
     {
-      "url": "https://structure-api-render.onrender.com/api"
+       "url": "https://structure-api-render.onrender.com"
+
     }
   ],
   "paths": {
