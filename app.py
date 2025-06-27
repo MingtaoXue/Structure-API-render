@@ -3,6 +3,20 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+from pydantic import BaseModel
+
+class InputData(BaseModel):
+    user_input: str
+
+@app.post("/api/predict")
+def predict_api(data: InputData):
+    text = data.user_input
+    if "薛明涛" in text:
+        return {"response": "✅ 已识别关键词：薛明涛"}
+    else:
+        return {"response": "❌ 未检测到关键词"}
+
+
 from fastapi.staticfiles import StaticFiles
 
 app.mount("/", StaticFiles(directory=".", html=True), name="static")
