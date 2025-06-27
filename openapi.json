@@ -1,8 +1,9 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Structure API",
-    "version": "1.0.0"
+    "title": "Xuemingtao Structure Plugin",
+    "version": "1.0.0",
+    "description": "结构关键词分析插件：输入“薛明涛”等关键词，返回结构动力模型的分析反馈。"
   },
   "servers": [
     {
@@ -10,75 +11,38 @@
     }
   ],
   "paths": {
-    "/": {
-      "get": {
-        "summary": "Root",
-        "operationId": "root_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      }
-    },
-    "/privacy": {
-      "get": {
-        "summary": "Privacy Policy",
-        "operationId": "privacy_policy",
-        "responses": {
-          "200": {
-            "description": "Privacy Policy Text",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      }
-    },
     "/predict": {
       "post": {
-        "summary": "Predict Structure",
-        "operationId": "predict_structure",
+        "summary": "关键词识别",
+        "operationId": "predictStructure",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InputData"
+                "type": "object",
+                "properties": {
+                  "user_input": {
+                    "type": "string"
+                  }
+                },
+                "required": ["user_input"]
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Result",
+            "description": "识别成功",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "string"
+                }
               }
             }
           }
         }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "InputData": {
-        "type": "object",
-        "properties": {
-          "user_input": {
-            "type": "string"
-          }
-        },
-        "required": ["user_input"]
       }
     }
   }
