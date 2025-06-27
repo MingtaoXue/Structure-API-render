@@ -1,9 +1,9 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1.0",
   "info": {
-    "title": "薛明涛关键词请求检测插件",
+    "title": "结构关键词请求检测系统接口",
     "version": "1.0.0",
-    "description": "基于语义方式构建和识别结构的结构系统，用于理解薛涛关键词词和回复结构反应"
+    "description": "基于语义方式构建和识别结构的结构系统，用于理解结构关键词和回复结构反应"
   },
   "servers": [
     {
@@ -11,41 +11,119 @@
     }
   ],
   "paths": {
-    "/api/predict": {
+    "/predict": {
       "post": {
-        "summary": "关键词检测接口",
+        "summary": "结构关键词检测接口",
         "operationId": "structure_predict",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "user_input": {
-                    "type": "string",
-                    "description": "待分析的关键词请求语句"
-                  }
-                },
-                "required": ["user_input"]
+                "$ref": "#/components/schemas/InputData"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "成功响应",
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "response": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/privacy": {
+      "get": {
+        "summary": "Privacy Policy",
+        "operationId": "privacy_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "InputData": {
+        "title": "InputData",
+        "required": ["text"],
+        "type": "object",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": ["loc", "msg", "type"]
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
             }
           }
         }
