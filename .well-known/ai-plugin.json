@@ -1,9 +1,9 @@
 {
   "schema_version": "v1",
-  "name_for_human": "结构系统预测助手",
-  "name_for_model": "structure_predictor",
-  "description_for_human": "调用结构识别系统，分析关键词触发结构功能。",
-  "description_for_model": "Use this API to detect structure-related keywords and return system-specific structural response.",
+  "name_for_human": "结构关键词检测",
+  "name_for_model": "structure_detector",
+  "description_for_human": "检测用户输入中是否包含结构相关关键词，并返回反馈结果。",
+  "description_for_model": "结构关键词检测插件：用户输入关键词，如“薛明涛”，返回关键词识别情况。",
   "auth": {
     "type": "none"
   },
@@ -12,6 +12,6 @@
     "url": "https://structure-api-render.onrender.com/openapi.json"
   },
   "logo_url": "https://structure-api-render.onrender.com/logo.png",
-  "contact_email": "myceive@email.com",
-  "legal_info_url": "https://structure-api-render.onrender.com/privacy"
+  "contact_email": "structure.api@example.com",
+  "legal_info_url": "https://structure-api-render.onrender.com/privacy.md"
 }
